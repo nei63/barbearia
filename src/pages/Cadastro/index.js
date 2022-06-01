@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 
-export default function App() {
+export default function Cadastro() {
   const [user, setUser] = useState(null);
   const [senha, setSenha] = useState(null);
 
@@ -14,23 +14,43 @@ export default function App() {
     
     <View style={styles.fundo}>
       <Image
-        source={{ uri:'https://png.pngtree.com/png-clipart/20190516/original/pngtree-barber-badge-and-logogood-for-your-shop-png-image_3787117.jpg'}}
+        source={{ uri:'https://thumbs.dreamstime.com/b/%C3%ADcone-da-pessoa-no-fundo-preto-vetor-do-esbo%C3%A7o-da-pessoa-90447210.jpg'}}
         style={styles.logo}
       />
-      <Text style={styles.titulosinputs}>Modo do App</Text>
 
       <TouchableOpacity
           style={styles.button}
           onPress={() => calcula()}
         >
-        <Text style={styles.textobt}>Cliente</Text>
+        <Text style={styles.textobt}>Agendar Atendimento</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
           style={styles.button}
           onPress={() => calcula()}
         >
-        <Text style={styles.textobt}>Barbearia</Text>
+        <Text style={styles.textobt}>Alertas do App</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+          style={styles.button}
+          onPress={() => calcula()}
+        >
+        <Text style={styles.textobt}>Histórico de Agendamentos</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+          style={styles.button}
+          onPress={() => calcula()}
+        >
+        <Text style={styles.textobt}>Informações Pessoais</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+          style={styles.button}
+          onPress={() => calcula()}
+        >
+        <Text style={styles.textobt}>Sair</Text>
       </TouchableOpacity>
 
       <StatusBar style="auto" />
@@ -64,25 +84,24 @@ const styles = StyleSheet.create({
 
   titulosinputs: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 17,
     marginBottom: 20,
     marginTop: 20,
   },
   button: {
     backgroundColor: "red",
     color: "white",
-    fontSize: 10,
     alignItems: 'center',
-    padding: 9.5,
+    padding: 13,
     height: 50,
-    width: 360,
+    width: 200,
     borderRadius: 25,
-    marginBottom: 25,
+    marginTop: 15,
     
   },
   textobt: {
     color: '#FFF',
-    fontSize: 20,
+    fontSize: 14,
   },
   hyperLink:{
     fontSize: 12,

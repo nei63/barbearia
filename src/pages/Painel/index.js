@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 
-export default function App() {
+export default function Painel() {
   const [user, setUser] = useState(null);
   const [senha, setSenha] = useState(null);
 

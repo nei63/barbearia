@@ -25,7 +25,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="hhhhhh" component={Tabs} options={{ headerShown: false }}/>
-        <Stack.Screen name="Novo Cadastro" component={Cadastro}/>
+        <Stack.Screen name="Novo Agendamento" component={Cadastro}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

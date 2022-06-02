@@ -1,111 +1,120 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Modal } from 'react-native';
+import ModalPicker from '../../components/ModalPicker/'
 
 export default function Cadastro() {
-  const [user, setUser] = useState(null);
-  const [senha, setSenha] = useState(null);
+  const [chooseData,setchooseData] = useState('Selecione um Serviço');
+  const [isModalVisible, setisModalVisible] = useState(false);
 
-  function calcula(){
+  const changeModalVisibility = (bool) => {
+    setisModalVisible(bool)
+  }
 
+  const setData = (option) => {
+    setchooseData(option)
   }
 
   return (
-    
-    <View style={styles.fundo}>
-      <Image
-        source={{ uri:'https://thumbs.dreamstime.com/b/%C3%ADcone-da-pessoa-no-fundo-preto-vetor-do-esbo%C3%A7o-da-pessoa-90447210.jpg'}}
-        style={styles.logo}
-      />
+    <View style={styles.container}>
+      <View style={styles.containerInputs}>
+        <Text style={styles.titulosinputs}>Nome Completo</Text>
+          <TextInput
+            style={styles.inputs}
+            placeholder={'Nome Completo'}
+          />
+      </View>
 
-      <TouchableOpacity
-          style={styles.button}
-          onPress={() => calcula()}
+      <View style={styles.containerInputs}>
+        <Text style={styles.titulosinputs}>Serviço</Text>
+        <TouchableOpacity
+         style={styles.modalSelect}
+         onPress={() => changeModalVisibility(true)}
         >
-        <Text style={styles.textobt}>Agendar Atendimento</Text>
-      </TouchableOpacity>
+          <Text style={styles.textoSelect}>{chooseData}</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-          style={styles.button}
-          onPress={() => calcula()}
+        <Modal
+          transparent={true}
+          animationType='fade'
+          visible={isModalVisible}
+          nRequestClose={() => changeModalVisibility(false)}
         >
-        <Text style={styles.textobt}>Alertas do App</Text>
-      </TouchableOpacity>
+          <ModalPicker
+            changeModalVisibility={changeModalVisibility}
+            setData={setData}
+          />
+        </Modal>
+      </View>
 
-      <TouchableOpacity
+      <View style={styles.containerButton}>
+        <TouchableOpacity
           style={styles.button}
-          onPress={() => calcula()}
         >
-        <Text style={styles.textobt}>Histórico de Agendamentos</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-          style={styles.button}
-          onPress={() => calcula()}
-        >
-        <Text style={styles.textobt}>Informações Pessoais</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-          style={styles.button}
-          onPress={() => calcula()}
-        >
-        <Text style={styles.textobt}>Sair</Text>
-      </TouchableOpacity>
-
-      <StatusBar style="auto" />
+          <Text style={styles.textobt}>Cadastrar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
+    
+    
   );
 }
 
 
 const styles = StyleSheet.create({
-  fundo: {
-    flex: 1,
+  container: {
+    display: 'flex',
     position: 'relative',
-    backgroundColor: 'black',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
+    marginLeft: 45,
+    marginTop: 25,
   },
-  logo: {
-    width: 250,
-    height: 250,
+  containerInputs: {
+      marginBottom: 10,
   },
-
+  containerButton: {
+      marginTop: 10,
+  },
+  button: {
+      backgroundColor: "#3C67F5",
+      fontSize: 10,
+      alignItems: 'center',
+      padding: 14,
+      height: 50,
+      width: 300,
+      borderRadius: 15,
+  },
+  textobt:{
+      color: 'white',
+  },
   inputs: {
     padding: 10,
-    width: 350,
-    height: 45,
-    borderColor: 'white',
-    borderWidth: 0,
-    borderRadius: 25,
-    backgroundColor: '#fff',
+    width: 300,
+    height: 50,
+    borderColor: '#3C67F5',
+    borderWidth: 0.5,
+    borderRadius: 15,
+    backgroundColor: 'white',
   },
 
   titulosinputs: {
-    color: '#fff',
-    fontSize: 17,
-    marginBottom: 20,
-    marginTop: 20,
+    color: 'black',
+    fontSize: 15,
+    marginBottom: 12,
   },
-  button: {
-    backgroundColor: "red",
-    color: "white",
-    alignItems: 'center',
-    padding: 13,
+
+  modalSelect: {
+    backgroundColor: 'white',
+    alignSelf: 'stretch',
+    padding: 14, 
     height: 50,
-    width: 200,
-    borderRadius: 25,
-    marginTop: 15,
-    
+    width: 300,
+    borderRadius: 15,
+    borderWidth: 0.5,
+    borderColor: '#3C67F5',
   },
-  textobt: {
-    color: '#FFF',
-    fontSize: 14,
-  },
-  hyperLink:{
-    fontSize: 12,
-    color: 'white',
-    marginTop: 25,
+  textoSelect: {
+    color: 'black',
   },
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default function Lista(){
+export default function Lista({navigation}){
     return(
         <View style={styles.container}>
 
@@ -16,7 +16,7 @@ export default function Lista(){
             <View style={styles.containerButton}>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => calcula()}
+                    onPress={() => navigation.navigate('Novo Agendamento')}
                 >
                     <Text style={styles.textobt}>Novo Agendamento</Text>
                 </TouchableOpacity>

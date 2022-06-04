@@ -12,6 +12,8 @@ export default function Cadastro() {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [text, setText] = useState('Empty');
+  const [calendario, setCalendario] = useState('Selecione uma Data');
+  const [hour, setHour] = useState('Selecione um Horário');
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -20,9 +22,11 @@ export default function Cadastro() {
 
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
-    let fTime = 'Hours: ' + tempDate.getHours() + ' | Minutes: ' + tempDate.getMinutes();
-    setText(fDate + '\n' + fTime)
-    console.log(fDate + ' (' + fTime + ')')
+    let fTime = tempDate.getHours() + ' : ' + tempDate.getMinutes();
+    setText(fDate + '\n' + fTime);
+    console.log(fDate + ' (' + fTime + ')');
+    setCalendario(fDate);
+    setHour(fTime);
   }
 
   const showMode = (currentMode) => {
@@ -76,7 +80,7 @@ export default function Cadastro() {
           style={styles.modalSelect}
           onPress={() => showMode('date')}
         >
-          <Text style={styles.textoSelect}>Selecione uma Data</Text>
+          <Text style={styles.textoSelect}>{calendario}</Text>
         </TouchableOpacity>
       </View>
 
@@ -86,9 +90,10 @@ export default function Cadastro() {
           style={styles.modalSelect}
           onPress={() => showMode('time')}
         >
-          <Text style={styles.textoSelect}>Selecione um Horário</Text>
+          <Text style={styles.textoSelect}>{hour}</Text>
         </TouchableOpacity>
       </View>
+
 
         {show && (
           <DateTimePicker

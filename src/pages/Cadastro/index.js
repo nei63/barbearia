@@ -1,11 +1,34 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Modal } from 'react-native';
-import ModalPicker from '../../components/ModalPicker/'
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Modal, Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker'
+
+import ModalPicker from '../../components/ModalPicker/';
 
 export default function Cadastro() {
   const [chooseData,setchooseData] = useState('Selecione um Serviço');
   const [isModalVisible, setisModalVisible] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+  const [text, setText] = useState('Empty');
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
+    let fTime = 'Hours: ' + tempDate.getHours() + ' | Minutes: ' + tempDate.getMinutes();
+    setText(fDate + '\n' + fTime)
+    console.log(fDate + ' (' + fTime + ')')
+  }
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  }
 
   const changeModalVisibility = (bool) => {
     setisModalVisible(bool)
@@ -47,6 +70,36 @@ export default function Cadastro() {
         </Modal>
       </View>
 
+      <View style={styles.containerInputs}>
+        <Text style={styles.titulosinputs}>Data</Text>
+        <TouchableOpacity
+          style={styles.modalSelect}
+          onPress={() => showMode('date')}
+        >
+          <Text style={styles.textoSelect}>Selecione uma Data</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View>
+        <Text style={styles.titulosinputs}>Hora</Text>
+        <TouchableOpacity
+          style={styles.modalSelect}
+          onPress={() => showMode('time')}
+        >
+          <Text style={styles.textoSelect}>Selecione um Horário</Text>
+        </TouchableOpacity>
+      </View>
+
+        {show && (
+          <DateTimePicker
+          testID='dateTimePicker'
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          display='default'
+          onChange={onChange}
+        />)}
+
       <View style={styles.containerButton}>
         <TouchableOpacity
           style={styles.button}
@@ -74,7 +127,7 @@ const styles = StyleSheet.create({
       marginBottom: 10,
   },
   containerButton: {
-      marginTop: 10,
+      marginTop: 20,
   },
   button: {
       backgroundColor: "#3C67F5",

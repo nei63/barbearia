@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Modal, Platform } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Modal, Platform, props } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker'
 
 import ModalPicker from '../../components/ModalPicker/';
+import ModalPicker2 from '../../components/ModalPicker2/';
 
-export default function Cadastro() {
+export default function Cadastro(props) {
   const [chooseData,setchooseData] = useState('Selecione um Serviço');
+  const [chooseHora,setchooseHora] = useState('Selecione um Horário');
   const [isModalVisible, setisModalVisible] = useState(false);
+  const [isModalVisible2, setisModalVisible2] = useState(false);
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  const [text, setText] = useState('Empty');
   const [calendario, setCalendario] = useState('Selecione uma Data');
-  const [hour, setHour] = useState('Selecione um Horário');
+
+  const OPTIONS2 = props.OPTIONS2;
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -23,10 +26,8 @@ export default function Cadastro() {
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
     let fTime = tempDate.getHours() + ' : ' + tempDate.getMinutes();
-    setText(fDate + '\n' + fTime);
     console.log(fDate + ' (' + fTime + ')');
     setCalendario(fDate);
-    setHour(fTime);
   }
 
   const showMode = (currentMode) => {
@@ -38,8 +39,16 @@ export default function Cadastro() {
     setisModalVisible(bool)
   }
 
+  const changeModalVisibility2 = (bool) => {
+    setisModalVisible2(bool)
+  }
+
   const setData = (option) => {
     setchooseData(option)
+  }
+
+  const setHora = (option2) => {
+    setchooseHora(option2)
   }
 
   return (
@@ -75,6 +84,28 @@ export default function Cadastro() {
       </View>
 
       <View style={styles.containerInputs}>
+        <Text style={styles.titulosinputs}>Horário</Text>
+        <TouchableOpacity
+         style={styles.modalSelect}
+         onPress={() => changeModalVisibility2(true)}
+        >
+          <Text style={styles.textoSelect}>{chooseHora}</Text>
+        </TouchableOpacity>
+
+        <Modal
+          transparent={true}
+          animationType='fade'
+          visible={isModalVisible2}
+          nRequestClose={() => changeModalVisibility2(false)}
+        >
+          <ModalPicker2
+            changeModalVisibility2={changeModalVisibility2}
+            setHora={setHora}
+          />
+        </Modal>
+      </View>
+
+      <View style={styles.containerInputs}>
         <Text style={styles.titulosinputs}>Data</Text>
         <TouchableOpacity
           style={styles.modalSelect}
@@ -84,17 +115,6 @@ export default function Cadastro() {
         </TouchableOpacity>
       </View>
 
-      <View>
-        <Text style={styles.titulosinputs}>Hora</Text>
-        <TouchableOpacity
-          style={styles.modalSelect}
-          onPress={() => showMode('time')}
-        >
-          <Text style={styles.textoSelect}>{hour}</Text>
-        </TouchableOpacity>
-      </View>
-
-
         {show && (
           <DateTimePicker
           testID='dateTimePicker'
@@ -103,11 +123,14 @@ export default function Cadastro() {
           is24Hour={true}
           display='default'
           onChange={onChange}
+          minimumDate={new Date(2022, 1, 0)}
+          maximumDate={new Date(2030,0, 0)}
         />)}
 
       <View style={styles.containerButton}>
         <TouchableOpacity
           style={styles.button}
+          onPress={() => alert(OPTIONS2)}
         >
           <Text style={styles.textobt}>Cadastrar</Text>
         </TouchableOpacity>

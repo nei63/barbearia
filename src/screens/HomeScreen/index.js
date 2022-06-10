@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export default function Lista({navigation}){
+export default function HomeScreen({navigation}){
     return(
         <View style={styles.container}>
 

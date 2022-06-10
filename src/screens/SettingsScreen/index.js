@@ -1,113 +1,96 @@
 import React, { useState } from "react";
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 import { ScrollView } from "react-native-gesture-handler";
 
-export default function Painel() {
-  const [user, setUser] = useState(null);
-  const [senha, setSenha] = useState(null);
+import user from '../../img/user-removebg.png'
 
-  function calcula(){
+export default function SettingsScreen({navigation}) {
 
-  }
 
   return (
-    <ScrollView>
-      <View style={styles.fundo}>
-          <Image
-            source={{ uri:'https://thumbs.dreamstime.com/b/%C3%ADcone-da-pessoa-no-fundo-preto-vetor-do-esbo%C3%A7o-da-pessoa-90447210.jpg'}}
-            style={styles.logo}
-          />
+      <View style={styles.container}>
 
+        <View style={styles.containerImage}>
+          <Image source={user} style={styles.image}/>
+        </View>
+
+        <View style={styles.containerButtons}>
           <TouchableOpacity
               style={styles.button}
               onPress={() => calcula()}
             >
-            <Text style={styles.textobt}>Agendar Atendimento</Text>
+            <Text style={styles.textobt}>Agendamentos</Text>
           </TouchableOpacity>
+        </View>
 
+        <View style={styles.containerButtons}>
           <TouchableOpacity
               style={styles.button}
               onPress={() => calcula()}
             >
-            <Text style={styles.textobt}>Alertas do App</Text>
+            <Text style={styles.textobt}>Configurações do App</Text>
           </TouchableOpacity>
+        </View>
 
+        <View style={styles.containerButtons}>
           <TouchableOpacity
               style={styles.button}
               onPress={() => calcula()}
             >
             <Text style={styles.textobt}>Histórico de Agendamentos</Text>
           </TouchableOpacity>
+        </View>
 
+        <View style={styles.containerButtons}>
           <TouchableOpacity
               style={styles.button}
               onPress={() => calcula()}
             >
             <Text style={styles.textobt}>Informações Pessoais</Text>
           </TouchableOpacity>
+        </View>
 
+        <View style={styles.containerButtons}>
           <TouchableOpacity
               style={styles.button}
               onPress={() => calcula()}
             >
-            <Text style={styles.textobt}>Sair</Text>
+            <Text style={styles.textobt}>Logout</Text>
           </TouchableOpacity>
-
-          <StatusBar style="auto" />
+        </View>
+          
       </View>
-    </ScrollView>
   );
 }
 
 
 const styles = StyleSheet.create({
-  fundo: {
+  container: {
     flex: 1,
     position: 'relative',
-    backgroundColor: 'black',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    width: 250,
-    height: 250,
-  },
-
-  inputs: {
-    padding: 10,
-    width: 350,
-    height: 45,
-    borderColor: 'white',
-    borderWidth: 0,
-    borderRadius: 25,
-    backgroundColor: '#fff',
-  },
-
-  titulosinputs: {
-    color: '#fff',
-    fontSize: 17,
-    marginBottom: 20,
-    marginTop: 20,
   },
   button: {
-    backgroundColor: "red",
-    color: "white",
+    backgroundColor: "#3C67F5",
+    fontSize: 10,
     alignItems: 'center',
-    padding: 13,
+    padding: 14,
     height: 50,
-    width: 200,
-    borderRadius: 25,
-    marginTop: 15,
-    
+    width: 300,
+    borderRadius: 15,
   },
-  textobt: {
-    color: '#FFF',
-    fontSize: 14,
-  },
-  hyperLink:{
-    fontSize: 12,
+  textobt:{
     color: 'white',
-    marginTop: 25,
   },
+  containerButtons: {
+    marginTop: 20,
+  },
+  containerImage:{
+    marginTop: 50,
+    marginBottom: 15,
+  },
+  image: {
+    width: 100,
+    height: 100,
+  }
 });

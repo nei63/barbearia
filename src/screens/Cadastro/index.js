@@ -6,7 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker'
 import ModalPicker from '../../components/ModalPicker/';
 import ModalPicker2 from '../../components/ModalPicker2/';
 
-export default function Cadastro(props) {
+export default function Cadastro(props, {navigation}) {
   const [chooseData,setchooseData] = useState('Selecione um Serviço');
   const [chooseHora,setchooseHora] = useState('Selecione um Horário');
   const [isModalVisible, setisModalVisible] = useState(false);

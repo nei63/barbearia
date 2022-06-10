@@ -58,13 +58,14 @@ export default function App() {
         screenOptions={{
           headerMode: 'screen',
           headerTintColor: 'black',
-          headerStyle: { backgroundColor: 'white', borderRadius: 20, height: 92},
-          
-          
+          headerStyle: { backgroundColor: 'white', borderRadius: 50, height: 92},
+          headerTitleAlign: 'center',
+          cardStyle: { marginTop: 20, flex: 1},
         }}
       >
         <Stack.Screen name={homeName} component={Tabs}/>
         <Stack.Screen name="Novo Agendamento" component={Cadastro}/>
+        <Stack.Screen name="Novo" component={HomeScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

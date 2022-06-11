@@ -1,158 +1,157 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import swal from 'sweetalert';
+import { StyleSheet, Text, View, ToastAndroid } from 'react-native';
 
 function verificarLogin(){
     if(user === ""){
-        swal({
-            title: "Erro",
-            text: "Complete o campo Usuário!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete o campo Usuário!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     if(senha === ""){
-        swal({
-            title: "Erro",
-            text: "Complete o campo Senha!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete o campo Senha!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     if(user === "" && senha === ""){
-        swal({
-            title: "Erro",
-            text: "Complete todos os campos!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete todos os campos!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     else{
-        swal({
-            title: "Good job!",
-            text: "Login feito com sucesso!",
-            icon: "success",
-        });
+        ToastAndroid.showWithGravity(
+            "Login feito com sucesso!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return true;
     }
 }
 
 function verificarCadastro(){
     if(user === ""){
-        swal({
-            title: "Erro",
-            text: "Complete o campo Usuário",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete o campo Usuário!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     if(email === ""){
-        swal({
-            title: "Erro",
-            text: "Complete o campo Email",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete o campo Email!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
 
     if(telefone === ""){
-        swal({
-            title: "Erro",
-            text: "Complete o campo Telefone!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete o campo Telefone!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     if(senha === ""){
-        swal({
-            title: "Erro",
-            text: "Complete o campo Senha!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete o campo Senha!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     if(repetirSenha === ""){
-        swal({
-            title: "Erro",
-            text: "Complete o campo Repita a Senha!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete o campo Repetir Senha!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     if(repetirSenha !== senha){
-        swal({
-            title: "Good job!",
-            text: "O campo Repita a Senha deve ser igual ao campo Senha!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "As senhas não batem!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
 
     if(user === "" && email === "" && telefone === "" && senha === "" && repetirSenha === ""){
-        swal({
-            title: "Erro",
-            text: "Complete todos os campos!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete todos os campos!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     else{
-        swal({
-            title: "Good job!",
-            text: "Cadastro feito com sucesso!",
-            icon: "success",
-        });
+        ToastAndroid.showWithGravity(
+            "Cadastro feito com sucesso!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return true;
     }
 }
 
 function verificarNovoAgendamento(){
     if(nome === ""){
-        swal({
-            title: "Erro",
-            text: "Complete o campo Nome!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete o campo Nome!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     if(servico === "Selecione um Serviço"){
-        swal({
-            title: "Erro",
-            text: "Selecione um Serviço!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Selecione um Serviço!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     if(horario === "Selecione um Horário"){
-        swal({
-            title: "Erro",
-            text: "Selecione um Horário!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Selecione um Horário!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     if(data === "Selecione uma Data"){
-        swal({
-            title: "Erro",
-            text: "Selecione uma Data!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Selecione uma Data!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     if(nome === "" && servico === "Selecione um Serviço" && horario === "Selecione um Horário" && data === "Selecione uma Data"){
-        swal({
-            title: "Erro",
-            text: "Complete todos os campos!",
-            icon: "error",
-        });
+        ToastAndroid.showWithGravity(
+            "Complete todos os campos!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return false;
     }
     else {
-        swal({
-            title: "Good Job!",
-            text: "Agendamento feito com sucesso!",
-            icon: "success",
-        });
+        ToastAndroid.showWithGravity(
+            "Agendamento feito com sucesso!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
         return true;
     }
 }

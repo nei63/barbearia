@@ -3,60 +3,66 @@ import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'reac
 import { ScrollView } from "react-native-gesture-handler";
 
 import user from '../../img/user-removebg.png'
+import Header from '../../components/Header'
 
-export default function SettingsScreen({navigation}) {
+export default function SettingsScreen() {
 
 
   return (
       <View style={styles.container}>
 
-        <View style={styles.containerImage}>
-          <Image source={user} style={styles.image}/>
-        </View>
+        <Header/>
 
-        <View style={styles.containerButtons}>
-          <TouchableOpacity
-              style={styles.button}
-              onPress={() => calcula()}
-            >
-            <Text style={styles.textobt}>Agendamentos</Text>
-          </TouchableOpacity>
-        </View>
+        <View style={styles.container2}>
+          
+          <View style={styles.containerImage}>
+            <Image source={user} style={styles.image}/>
+          </View>
 
-        <View style={styles.containerButtons}>
-          <TouchableOpacity
-              style={styles.button}
-              onPress={() => calcula()}
-            >
-            <Text style={styles.textobt}>Configurações do App</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.containerButtons}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => calcula()}
+              >
+              <Text style={styles.textobt}>Agendamentos</Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.containerButtons}>
-          <TouchableOpacity
-              style={styles.button}
-              onPress={() => calcula()}
-            >
-            <Text style={styles.textobt}>Histórico de Agendamentos</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.containerButtons}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => calcula()}
+              >
+              <Text style={styles.textobt}>Configurações do App</Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.containerButtons}>
-          <TouchableOpacity
-              style={styles.button}
-              onPress={() => calcula()}
-            >
-            <Text style={styles.textobt}>Informações Pessoais</Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.containerButtons}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => calcula()}
+              >
+              <Text style={styles.textobt}>Histórico de Agendamentos</Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.containerButtons}>
-          <TouchableOpacity
-              style={styles.button}
-              onPress={() => calcula()}
-            >
-            <Text style={styles.textobt}>Logout</Text>
-          </TouchableOpacity>
+          <View style={styles.containerButtons}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => calcula()}
+              >
+              <Text style={styles.textobt}>Informações Pessoais</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.containerButtons}>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => calcula()}
+              >
+              <Text style={styles.textobt}>Logout</Text>
+            </TouchableOpacity>
+          </View>
         </View>
           
       </View>
@@ -68,7 +74,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
+    backgroundColor: '#fff',
     alignItems: 'center',
+  },
+  container2:{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 60,
   },
   button: {
     backgroundColor: "#3C67F5",

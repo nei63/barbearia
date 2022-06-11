@@ -1,26 +1,33 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
+import Header from '../../components/Header'
+
 export default function HomeScreen({navigation}){
     return(
         <View style={styles.container}>
+            <Header/>
 
-            <View style={styles.containerTitulo}>
-              <Text style={styles.titulo}>Agendamentos</Text>
+            <View style={styles.container2}>
+                <View style={styles.containerTitulo}>
+                    <Text style={styles.titulo}>Agendamentos</Text>
+                </View>
+
+                <View style={styles.containerLista}>
+                    <Text>LISTA</Text>
+                </View>
+
+                <View style={styles.containerButton}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => navigation.navigate('Novo Agendamento')}
+                    >
+                        <Text style={styles.textobt}>Novo Agendamento</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
 
-            <View style={styles.containerLista}>
-                <Text>LISTA</Text>
-            </View>
-
-            <View style={styles.containerButton}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => navigation.navigate('Novo Agendamento')}
-                >
-                    <Text style={styles.textobt}>Novo Agendamento</Text>
-                </TouchableOpacity>
-            </View>
+            
 
         </View>
     )
@@ -28,15 +35,28 @@ export default function HomeScreen({navigation}){
 
 const styles = StyleSheet.create({
     container: {
-      display: 'flex',
-      position: 'relative',
-      alignItems: 'flex-start',
-      justifyContent: 'center',
-      marginLeft: 45,
-      marginTop: 25,
+        flex: 1,
+        position: 'relative',
+        backgroundColor: '#fff',
+        alignItems: 'flex-start',
     },
+
+    container2:{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        marginTop: 25,
+        marginLeft: 48,
+    },
+
+    containerTitulo:{
+        marginLeft: 25,
+        marginTop: 80,
+    },
+
     titulo: {
-        fontSize: 20,
+        fontSize: 25,
+        fontWeight: 'bold',
     },
     containerLista: {
         margin: 40,

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { StyleSheet, Text, View, ToastAndroid } from 'react-native';
 
 function verificarLogin(){
-    if(user === ""){
+    if(email === ""){
         ToastAndroid.showWithGravity(
             "Complete o campo Usuário!",
             ToastAndroid.SHORT,
@@ -10,7 +10,7 @@ function verificarLogin(){
         );
         return false;
     }
-    if(senha === ""){
+    if(password === ""){
         ToastAndroid.showWithGravity(
             "Complete o campo Senha!",
             ToastAndroid.SHORT,
@@ -18,7 +18,7 @@ function verificarLogin(){
         );
         return false;
     }
-    if(user === "" && senha === ""){
+    if(email === "" && password === ""){
         ToastAndroid.showWithGravity(
             "Complete todos os campos!",
             ToastAndroid.SHORT,

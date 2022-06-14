@@ -4,16 +4,14 @@ import { StatusBar } from 'expo-status-bar';
 
 import logo from '../../img/logo.png'
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../../contexts/Auth";
 
 export default function LoginScreen() {
-  const [user, setUser] = useState(null);
-  const [senha, setSenha] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const {signIn} = useAuth();
 
   const navigation = useNavigation();
-
-  function calcula(){
-
-  }
 
   return (
     
@@ -28,12 +26,12 @@ export default function LoginScreen() {
       </View>
 
       <View style={styles.containerInputs}>
-        <Text style={styles.titulosinputs}>Usuário</Text>
+        <Text style={styles.titulosinputs}>E-mail</Text>
         <TextInput
           style={styles.inputs}
-          placeholder={'Usuário'}
-          onChangeText={setUser}
-          value={user}
+          placeholder={'E-mail'}
+          onChangeText={setEmail}
+          value={email}
         />
       </View>
       
@@ -44,8 +42,8 @@ export default function LoginScreen() {
           style={styles.inputs}
           secureTextEntry
           placeholder={'Senha'}
-          onChangeText={setSenha}
-          value={senha}
+          onChangeText={setPassword}
+          value={password}
         />
       </View>
 
@@ -60,7 +58,7 @@ export default function LoginScreen() {
       <View style={styles.containerButton}>
         <TouchableOpacity
             style={styles.button}
-            onPress={() => calcula()}
+            onPress={() => signIn(email, password)}
           >
           <Text style={styles.textobt}>Login</Text>
         </TouchableOpacity>

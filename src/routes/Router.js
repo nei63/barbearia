@@ -3,14 +3,24 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import AppStack from './AppStack';
 import AuthStack from './AuthStack';
+import { useAuth } from '../contexts/Auth';
+import { View, Text } from 'react-native';
 
 
 export default function Router() {
-  const auth = true;
+  const {AuthData, loading} = useAuth();
+
+  if(loading) {
+    return(
+      <View style={{flex: 1, justifyContent: 'center', alignItems:'center'}}>
+        <Text>Carregando App...</Text>
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>
-      {auth ? <AppStack /> : <AuthStack />}
+      {AuthData ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 }

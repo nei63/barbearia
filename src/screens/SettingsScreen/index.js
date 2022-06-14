@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
 import { ScrollView } from "react-native-gesture-handler";
 
+
 import user from '../../img/user-removebg.png'
 import Header from '../../components/Header'
+import { useAuth } from "../../contexts/Auth";
 
 export default function SettingsScreen() {
-
+  const {signOut} = useAuth();
 
   return (
       <View style={styles.container}>
@@ -58,7 +60,7 @@ export default function SettingsScreen() {
           <View style={styles.containerButtons}>
             <TouchableOpacity
                 style={styles.button}
-                onPress={() => calcula()}
+                onPress={signOut}
               >
               <Text style={styles.textobt}>Logout</Text>
             </TouchableOpacity>

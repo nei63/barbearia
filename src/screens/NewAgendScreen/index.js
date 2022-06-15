@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Modal, Platform, props } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -16,8 +16,6 @@ export default function NewAgendScreen(props) {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [calendario, setCalendario] = useState('Selecione uma Data');
-
-  const OPTIONS2 = props.OPTIONS2;
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -48,8 +46,34 @@ export default function NewAgendScreen(props) {
     setchooseData(option)
   }
 
-  const setHora = (option2) => {
-    setchooseHora(option2)
+  const setHora = (option1, option2, option3) => {
+    if(setchooseData === 'Barba'){
+      setchooseHora(option1)
+    }
+
+    if(setchooseData === 'Barba + Sobrancelha'){
+      setchooseHora(option1)
+    }
+
+    if(setchooseData === 'Cabelo'){
+      setchooseHora(option1)
+    }
+
+    if(setchooseData === 'Cabelo + Barba'){
+      setchooseHora(option2)
+    }
+
+    if(setchooseData === 'Cabelo + Barba + Sobrancelha'){
+      setchooseHora(option3)
+    }
+
+    if(setchooseData === 'Cabelo + Sobrancelha'){
+      setchooseHora(option1)
+    }
+
+    else{
+      setchooseHora(option1)
+    }
   }
 
   return (
@@ -134,7 +158,7 @@ export default function NewAgendScreen(props) {
         <View style={styles.containerButton}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => alert(OPTIONS2)}
+            onPress={() => alert(chooseHora)}
           >
             <Text style={styles.textobt}>Cadastrar</Text>
           </TouchableOpacity>

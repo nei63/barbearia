@@ -7,13 +7,10 @@ const OPTIONS3 = ['9:00', '10:30', '14:00', '15:30', '17:00', '18:30'];
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
-
-
+import ggg from '../screens/NewAgendScreen'
 
 const ModalPicker2 = (props) => {
     const onPressItem = (option1, option2, option3) => {
-        const chooseData = props.setchooseData;
-        
         if(chooseData === 'Barba'){
             props.changeModalVisibility2(false);
             props.setHora(option1);
@@ -98,7 +95,7 @@ const ModalPicker2 = (props) => {
             )
     })
 
-    const chooseData = props.setchooseData;
+    const chooseData = props.titulo;
 
     if(chooseData === 'Barba'){
         return(
@@ -191,7 +188,6 @@ const ModalPicker2 = (props) => {
     }
 
     else{
-        console.log(chooseData);
         return(
             <TouchableOpacity
                 onPress={() => props.changeModalVisibility2(false)}

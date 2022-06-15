@@ -17,6 +17,10 @@ export default function NewAgendScreen(props) {
   const [show, setShow] = useState(false);
   const [calendario, setCalendario] = useState('Selecione uma Data');
 
+  function pp(){
+      return setchooseData;
+  }
+
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
@@ -129,6 +133,7 @@ export default function NewAgendScreen(props) {
             <ModalPicker2
               changeModalVisibility2={changeModalVisibility2}
               setHora={setHora}
+              titulo={chooseData}
             />
           </Modal>
         </View>
@@ -164,10 +169,7 @@ export default function NewAgendScreen(props) {
           </TouchableOpacity>
         </View>
       </View>
-
-      
     </View>
-    
     
   );
 }

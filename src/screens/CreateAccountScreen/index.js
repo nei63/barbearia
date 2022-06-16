@@ -1,27 +1,87 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, ToastAndroid } from 'react-native';
 
-import logo from '../../img/logo.png';
-import backButton from '../../img/back-button.png';
-
-import Header from '../../components/HeaderWithBack'
+import Header from '../../components/HeaderWithBack';
+import Cadastro from '../../services/sqlite/Cadastro';
 
 export default function CreateAccountScreen() {
-  const [user, setUser] = useState(null);
   const [telefone, setTelefone] = useState(null);
   const [email, setEmail] = useState(null);
-  const [senha, setSenha] = useState(null);
+  const [password, setPassword] = useState(null);
   const [repetir, setRepetir] = useState(null);
-
-  const WIDTH = Dimensions.get('window').width;
 
   const navigation = useNavigation();
 
-  function calcula(){
-
+  const printCadastro = (cadastro) => {
+    console.log(`id:${cadastro.id}, email:${cadastro.email}, telefone:${cadastro.telefone}, password:${cadastro.password}`)
   }
+
+  function verificarCadastro() {
+    if(email === null){
+        ToastAndroid.showWithGravity(
+            "Complete o campo Email!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+
+    if(telefone === null){
+        ToastAndroid.showWithGravity(
+            "Complete o campo Telefone!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+    if(password === null){
+        ToastAndroid.showWithGravity(
+            "Complete o campo Senha!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+    if(repetir === null){
+        ToastAndroid.showWithGravity(
+            "Complete o campo Repetir Senha!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+    if(repetir !== password){
+        ToastAndroid.showWithGravity(
+            "As senhas não batem!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+
+    if(email === null && telefone === null && password === null && repetir === null){
+        ToastAndroid.showWithGravity(
+            "Complete todos os campos!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+    else{
+        ToastAndroid.showWithGravity(
+            "Cadastro feito com sucesso!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+
+        Cadastro.create( {email: email, telefone: telefone, password: password} )
+        .then( id => console.log('Cadastro created with id: '+ id) )
+        .catch( err => console.log(err) )
+
+        return navigation.goBack();
+    }
+}
 
   return (
     
@@ -30,13 +90,14 @@ export default function CreateAccountScreen() {
       <Header/>
       
       <ScrollView style={styles.containerScroll}>
+
         <View style={styles.containerInputs}>
-          <Text style={styles.titulosinputs}>Nome de usuário</Text>
+          <Text style={styles.titulosinputs}>E-mail</Text>
           <TextInput
             style={styles.inputs}
-            placeholder={'Usuário'}
-            onChangeText={setUser}
-            value={user}
+            placeholder={'E-mail'}
+            onChangeText={setEmail}
+            value={email}
           />
         </View>
 
@@ -51,22 +112,12 @@ export default function CreateAccountScreen() {
         </View>
 
         <View style={styles.containerInputs}>
-          <Text style={styles.titulosinputs}>E-mail</Text>
-          <TextInput
-            style={styles.inputs}
-            placeholder={'E-mail'}
-            onChangeText={setEmail}
-            value={email}
-          />
-        </View>
-
-        <View style={styles.containerInputs}>
           <Text style={styles.titulosinputs}>Senha</Text>
           <TextInput
             style={styles.inputs}
             placeholder={'Senha'}
-            onChangeText={setSenha}
-            value={senha}
+            onChangeText={setPassword}
+            value={password}
           />
         </View>
 
@@ -79,11 +130,12 @@ export default function CreateAccountScreen() {
             value={repetir}
           />
         </View>
+
       </ScrollView>
 
       <TouchableOpacity
           style={styles.button}
-          
+          onPress={() => verificarCadastro()}
         >
         <Text style={styles.textobt}>Cadastrar</Text>
       </TouchableOpacity>

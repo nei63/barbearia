@@ -6,9 +6,21 @@ import { ScrollView } from "react-native-gesture-handler";
 import user from '../../img/user-removebg.png'
 import Header from '../../components/Header'
 import { useAuth } from "../../contexts/Auth";
+import Cadastro from "../../services/sqlite/Cadastro";
 
 export default function SettingsScreen() {
   const {signOut} = useAuth();
+
+  const printCadastro = (cadastro) => {
+    console.log(`id:${cadastro.id}, email:${cadastro.email}, telefone:${cadastro.telefone}, password:${cadastro.password}`)
+  }
+
+  function calcula(){
+    Cadastro.all()
+    .then( 
+      cadastros => cadastros.forEach( c => printCadastro(c) )
+    )
+  }
 
   return (
       <View style={styles.container}>

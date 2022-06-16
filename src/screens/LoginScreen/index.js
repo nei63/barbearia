@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, ToastAndroid } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 import logo from '../../img/logo.png'
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../../contexts/Auth";
+import Cadastro from "../../services/sqlite/Cadastro";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState(null);
@@ -12,6 +13,47 @@ export default function LoginScreen() {
   const {signIn} = useAuth();
 
   const navigation = useNavigation();
+
+  const printCadastro = (cadastro) => {
+    console.log(`id:${cadastro.id}, email:${cadastro.email}, telefone:${cadastro.telefone}, password:${cadastro.password}`)
+  }
+
+  function verificarLogin(){
+    if(email === null){
+        ToastAndroid.showWithGravity(
+            "Complete o campo Email!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+    if(password === null){
+        ToastAndroid.showWithGravity(
+            "Complete o campo Senha!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+    else{
+        ToastAndroid.showWithGravity(
+            "Aguarde...",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return login();
+    }
+}
+
+  function login(){
+    Cadastro.findByLogin(email, password)
+    .then( () => signIn(email, password) )
+    .catch( err => ToastAndroid.showWithGravity(
+      err,
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    ))
+  }
 
   return (
     
@@ -58,7 +100,7 @@ export default function LoginScreen() {
       <View style={styles.containerButton}>
         <TouchableOpacity
             style={styles.button}
-            onPress={() => signIn(email, password)}
+            onPress={() => verificarLogin()}
           >
           <Text style={styles.textobt}>Login</Text>
         </TouchableOpacity>

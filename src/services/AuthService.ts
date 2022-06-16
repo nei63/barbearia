@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { AuthData } from '../contexts/Auth';
+import { ToastAndroid } from 'react-native'
 
 async function signIn(nameUser: string, password: string, email: string):Promise<AuthData> {
 
@@ -7,7 +8,12 @@ async function signIn(nameUser: string, password: string, email: string):Promise
     return new Promise((resolve, reject) => {
 
         setTimeout(() => {
-            if(password === '123456'){
+            if(password !== null && email !== null){
+                ToastAndroid.showWithGravity(
+                    'Login feito com sucesso!',
+                    ToastAndroid.SHORT,
+                    ToastAndroid.CENTER
+                )
                 resolve({
                     token: 'fake-token',
                     email,
@@ -18,7 +24,7 @@ async function signIn(nameUser: string, password: string, email: string):Promise
                 reject(new Error('credenciais inválidas'))
             }
 
-        }, 500);
+        }, 2250);
 
     })
 }

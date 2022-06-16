@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { createContext, useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, ToastAndroid } from 'react-native';
 import { AuthService } from '../services/AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -57,6 +57,12 @@ export const AuthProvider: React.FunctionComponent = ({children}) => {
     async function signOut(): Promise<void>{
         setAuthData(undefined);
         AsyncStorage.removeItem('@AuthData');
+
+        ToastAndroid.showWithGravity(
+            "Logout efetuado",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
 
         return;
     }

@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, ToastA
 
 import Header from '../../components/HeaderWithBack';
 import Cadastro from '../../services/sqlite/Cadastro';
+import db from "../../services/sqlite/SQLiteDatabase";
 
 export default function CreateAccountScreen() {
   const [telefone, setTelefone] = useState(null);
@@ -18,6 +19,17 @@ export default function CreateAccountScreen() {
   }
 
   function verificarCadastro() {
+    var hasEmail = false;
+
+    if(email === null && telefone === null && password === null && repetir === null){
+      ToastAndroid.showWithGravity(
+          "Complete todos os campos!",
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER
+      );
+      return false;
+    }
+
     if(email === null){
         ToastAndroid.showWithGravity(
             "Complete o campo Email!",
@@ -60,27 +72,38 @@ export default function CreateAccountScreen() {
         return false;
     }
 
-    if(email === null && telefone === null && password === null && repetir === null){
-        ToastAndroid.showWithGravity(
-            "Complete todos os campos!",
-            ToastAndroid.SHORT,
-            ToastAndroid.CENTER
-        );
-        return false;
-    }
-    else{
-        ToastAndroid.showWithGravity(
-            "Cadastro feito com sucesso!",
-            ToastAndroid.SHORT,
-            ToastAndroid.CENTER
-        );
+    db.transaction((tx) =>{
+      tx.executeSql(
+        "SELECT * FROM cadastros WHERE email=? OR telefone=?",
+        [email, telefone],
+        (tx, results) => {
+          var len = results.rows.length;
+          if(len > 0) {
+            hasEmail = true;
+            ToastAndroid.showWithGravity(
+              "Email ou telefone em uso!",
+              ToastAndroid.SHORT,
+              ToastAndroid.CENTER
+            );
+            return false;
+          }
+          else{
+            ToastAndroid.showWithGravity(
+              "Cadastro feito com sucesso! Faça login para continuar!",
+              ToastAndroid.SHORT,
+              ToastAndroid.CENTER
+            );
+  
+            Cadastro.create( {email: email, telefone: telefone, password: password} )
+            .then( id => console.log('Cadastro created with id: '+ id) )
+            .catch( err => console.log(err) )
+    
+            return navigation.goBack();
+          }
+        }
+      );
 
-        Cadastro.create( {email: email, telefone: telefone, password: password} )
-        .then( id => console.log('Cadastro created with id: '+ id) )
-        .catch( err => console.log(err) )
-
-        return navigation.goBack();
-    }
+    });
 }
 
   return (

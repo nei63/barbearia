@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, ToastAndroid } from 'react-native';
 import { ScrollView } from "react-native-gesture-handler";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import user from '../../img/user-removebg.png'
 import Header from '../../components/Header'
 import { useAuth } from "../../contexts/Auth";
 import Cadastro from "../../services/sqlite/Cadastro";
+import db from '../../services/sqlite/SQLiteDatabase'
 
 export default function SettingsScreen() {
   const {signOut} = useAuth();
@@ -22,6 +24,35 @@ export default function SettingsScreen() {
     )
   }
 
+  function delete1(){
+    db.transaction((tx) =>{
+      tx.executeSql(
+        "DELETE FROM cadastros",
+        [],
+        (tx, results) => {
+          var len = results.rows.length;
+          if(len > 0) {
+            ToastAndroid.showWithGravity(
+              "erro",
+              ToastAndroid.SHORT,
+              ToastAndroid.CENTER
+            )
+          }
+          else{
+            ToastAndroid.showWithGravity(
+              "Tudo deletado",
+              ToastAndroid.SHORT,
+              ToastAndroid.CENTER
+            )
+          }
+        }
+      );
+
+  });
+  }
+
+  const auth = AsyncStorage.getItem('@AuthData');
+
   return (
       <View style={styles.container}>
 
@@ -34,39 +65,7 @@ export default function SettingsScreen() {
           </View>
 
           <View style={styles.containerButtons}>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => calcula()}
-              >
-              <Text style={styles.textobt}>Agendamentos</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.containerButtons}>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => calcula()}
-              >
-              <Text style={styles.textobt}>Configurações do App</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.containerButtons}>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => calcula()}
-              >
-              <Text style={styles.textobt}>Histórico de Agendamentos</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.containerButtons}>
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => calcula()}
-              >
-              <Text style={styles.textobt}>Informações Pessoais</Text>
-            </TouchableOpacity>
+            <Text>Bem vindo {}</Text>
           </View>
 
           <View style={styles.containerButtons}>

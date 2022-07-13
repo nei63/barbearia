@@ -32,6 +32,8 @@ export default function Header(){
     )
 }
 
+//#2c2c2c//
+
 const styles = StyleSheet.create({
     containerHeader:{
         flex: 1,

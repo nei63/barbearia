@@ -1,13 +1,18 @@
 import React, { useState, useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Modal, Platform, props } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, Modal, Platform, ToastAndroid } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker'
+
 
 import ModalPicker from '../../components/ModalPicker/';
 import ModalPicker2 from '../../components/ModalPicker2/';
 import HeaderWithBack from '../../components/HeaderWithBack'
+import Agendamento from '../../services/sqlite/Agendamento';
+import HomeScreen from '../HomeScreen';
 
 export default function NewAgendScreen(props) {
+  const [nome, setNome] = useState(null)
   const [chooseData,setchooseData] = useState('Selecione um Serviço');
   const [chooseHora,setchooseHora] = useState('Selecione um Horário');
   const [isModalVisible, setisModalVisible] = useState(false);
@@ -17,9 +22,63 @@ export default function NewAgendScreen(props) {
   const [show, setShow] = useState(false);
   const [calendario, setCalendario] = useState('Selecione uma Data');
 
-  function pp(){
-      return setchooseData;
-  }
+  const navigation = useNavigation();
+
+  function verificarNovoAgendamento(){
+    const printAgendamento = (agendamento) => {
+      console.log(`id:${agendamento.id}, nome:${agendamento.nome}, servico:${agendamento.servico}, data:${agendamento.data}, horario:${agendamento.horario}`)
+    }
+
+    if(nome === null){
+        ToastAndroid.showWithGravity(
+            "Complete o campo Nome!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+    if(chooseData === "Selecione um Serviço"){
+        ToastAndroid.showWithGravity(
+            "Selecione um Serviço!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+    if(chooseHora === "Selecione um Horário"){
+        ToastAndroid.showWithGravity(
+            "Selecione um Horário!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+    if(calendario === "Selecione uma Data"){
+        ToastAndroid.showWithGravity(
+            "Selecione uma Data!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        return false;
+    }
+    else {
+        ToastAndroid.showWithGravity(
+            "Agendamento feito com sucesso!",
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER
+        );
+        Agendamento.create( {nome: nome, servico: chooseData, data: calendario, horario: chooseHora} )
+        .then( id => console.log('Agendamento created with id: '+ id) )
+        .catch( err => console.log(err) )
+
+        Agendamento.all()
+        .then( 
+          agendamentos => agendamentos.forEach( c => printAgendamento(c) )
+        )
+    
+        return navigation.goBack();
+    }
+}
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -29,7 +88,7 @@ export default function NewAgendScreen(props) {
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
     let fTime = tempDate.getHours() + ' : ' + tempDate.getMinutes();
-    console.log(fDate + ' (' + fTime + ')');
+    console.log(fDate + ' (' + fTime + ')\n');
     setCalendario(fDate);
   }
 
@@ -90,6 +149,8 @@ export default function NewAgendScreen(props) {
             <TextInput
               style={styles.inputs}
               placeholder={'Nome Completo'}
+              onChangeText={setNome}
+              value={nome}
             />
         </View>
 
@@ -163,7 +224,7 @@ export default function NewAgendScreen(props) {
         <View style={styles.containerButton}>
           <TouchableOpacity
             style={styles.button}
-            onPress={() => alert(chooseHora)}
+            onPress={() => verificarNovoAgendamento()}
           >
             <Text style={styles.textobt}>Cadastrar</Text>
           </TouchableOpacity>

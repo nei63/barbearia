@@ -118,7 +118,7 @@ const ModalPicker2 = (props) => {
             >
                 <View style={[styles.modal, {width: WIDTH - 20, height: HEIGHT / 2}]}>
                     <ScrollView>
-                        {option1}
+                        {option2}
                     </ScrollView>
                 </View>
             </TouchableOpacity>
@@ -133,7 +133,7 @@ const ModalPicker2 = (props) => {
             >
                 <View style={[styles.modal, {width: WIDTH - 20, height: HEIGHT / 2}]}>
                     <ScrollView>
-                        {option1}
+                        {option2}
                     </ScrollView>
                 </View>
             </TouchableOpacity>
@@ -178,7 +178,7 @@ const ModalPicker2 = (props) => {
             >
                 <View style={[styles.modal, {width: WIDTH - 20, height: HEIGHT / 2}]}>
                     <ScrollView>
-                        {option1}
+                        {option2}
                     </ScrollView>
                 </View>
             </TouchableOpacity>
@@ -193,7 +193,7 @@ const ModalPicker2 = (props) => {
             >
                 <View style={[styles.modal, {width: WIDTH - 20, height: HEIGHT / 2}]}>
                     <ScrollView>
-                        {option3}
+                        {option1}
                     </ScrollView>
                 </View>
             </TouchableOpacity>

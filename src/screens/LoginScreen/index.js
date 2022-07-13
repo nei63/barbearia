@@ -41,19 +41,9 @@ export default function LoginScreen() {
             ToastAndroid.SHORT,
             ToastAndroid.CENTER
         );
-        return login();
+        return signIn(email, password);
     }
 }
-
-  function login(){
-    Cadastro.findByLogin(email, password)
-    .then( () => signIn(email, password) )
-    .catch( err => ToastAndroid.showWithGravity(
-      err,
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
-    ))
-  }
 
   return (
     

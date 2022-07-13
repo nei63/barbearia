@@ -7,12 +7,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export interface AuthData {
     token: string;
     email: string;
-    nameUser: string;
+    password: string;
 }
 
 interface AuthContextData {
     AuthData?: AuthData;
-    signIn: (nameUser: string, password: string, email: string) => Promise<AuthData>;
+    signIn: (email: string, password: string) => Promise<AuthData>;
     signOut: () => Promise<void>;
     loading: boolean;
 }
@@ -39,10 +39,10 @@ export const AuthProvider: React.FunctionComponent = ({children}) => {
         setLoading(false);
     }
 
-    async function signIn(nameUser: string, password: string, email: string) {
+    async function signIn(email: string, password: string) {
         try {
 
-            const auth = await AuthService.signIn(nameUser, password, email);
+            const auth = await AuthService.signIn(email, password);
 
             setAuthData(auth);
             AsyncStorage.setItem('@AuthData', JSON.stringify(auth));
@@ -50,7 +50,11 @@ export const AuthProvider: React.FunctionComponent = ({children}) => {
             return auth;
 
         } catch (error) {
-            alert(error.message)
+            ToastAndroid.showWithGravity(
+                error.message,
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER
+            )
         }
     }
 

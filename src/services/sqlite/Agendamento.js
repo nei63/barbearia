@@ -1,4 +1,5 @@
 import db from './SQLiteDatabase';
+import HomeScreen from '../../screens/HomeScreen'
 
 /**
  * INICIALIZAÇÃO DA TABELA
@@ -10,7 +11,7 @@ db.transaction((tx) => {
   //<<<<<<<<<<<<<<<<<<<<<<<< USE ISSO APENAS DURANTE OS TESTES!!! >>>>>>>>>>>>>>>>>>>>>>>
 
   tx.executeSql(
-    "CREATE TABLE IF NOT EXISTS cadastros (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, telefone TEXT, password TEXT);"
+    "CREATE TABLE IF NOT EXISTS agendamentos (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(100), servico VARCHAR(20), data VARCHAR(15), horario VARCHAR(20));"
   );
 });
 
@@ -26,8 +27,8 @@ const create = (obj) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "INSERT INTO cadastros (email, telefone, password) values (?, ?, ?);",
-        [obj.email, obj.telefone, obj.password],
+        "INSERT INTO agendamentos (nome, servico, data, horario) values (?, ?, ?, ?);",
+        [obj.nome, obj.servico, obj.data, obj.horario],
         //-----------------------
         (_, { rowsAffected, insertId }) => {
           if (rowsAffected > 0) resolve(insertId);
@@ -51,8 +52,8 @@ const update = (id, obj) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "UPDATE cadastros SET email=?, telefone=?, password=? WHERE id=?;",
-        [obj.email, obj.telefone, obj.password, id],
+        "UPDATE agendamentos SET nome=?, servico=?, data=?, horario=? WHERE id=?;",
+        [obj.nome, obj.servico, obj.data, obj.horario, id],
         //-----------------------
         (_, { rowsAffected }) => {
           if (rowsAffected > 0) resolve(rowsAffected);
@@ -76,7 +77,7 @@ const find = (id) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "SELECT * FROM cadastros WHERE id=?;",
+        "SELECT * FROM agendamentos WHERE id=?;",
         [id],
         //-----------------------
         (_, { rows }) => {
@@ -164,7 +165,7 @@ const all = () => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "SELECT * FROM cadastros;",
+        "SELECT * FROM agendamentos;",
         [],
         //-----------------------
         (_, { rows }) => resolve(rows._array),
@@ -186,7 +187,7 @@ const remove = (id) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "DELETE FROM cadastros WHERE id=?;",
+        "DELETE FROM agendamentos WHERE id=?;",
         [id],
         //-----------------------
         (_, { rowsAffected }) => {
